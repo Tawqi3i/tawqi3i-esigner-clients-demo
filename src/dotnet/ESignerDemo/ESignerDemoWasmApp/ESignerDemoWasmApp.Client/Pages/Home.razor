@@ -1,0 +1,20 @@
+﻿@page "/"
+@* @rendermode InteractiveServer *@
+@* @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false)) *@
+@rendermode InteractiveWebAssembly
+@inject NavigationManager Navigation
+
+<PageTitle>Home</PageTitle>
+
+<h1>Welcome</h1>
+
+<p>This is a demo app to demonstrate the integration worflow for authetnication and signing with ESigner & SANAD for client side application with a backend.</p>
+<button class="btn btn-primary" onclick="@GetStarted">Get Started</button>
+
+@code {
+
+    private void GetStarted()
+    {
+        Navigation.NavigateTo("/sanad1");
+    }
+}
