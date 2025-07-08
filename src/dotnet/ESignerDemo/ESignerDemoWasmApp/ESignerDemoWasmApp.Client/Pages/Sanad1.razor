@@ -1,8 +1,33 @@
 ﻿@page "/sanad1"
-@rendermode InteractiveWebAssembly
+@using ESignerDemoWasmApp.Client.Services
+
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+
+@inject ESignerService ESignerService
 
 <h3>Demo 1: ESigner SANAD Authentication & Signing</h3>
+<br/>
+<div class="d-flex flex-column w-25">
+    <button class="btn btn-success m-2" onclick="@AuthCallback">Authenticate</button>
+
+    @if (IsAuthenticated)
+    {
+        <button class="btn btn-secondary m-2" onclick="@SignCallback">Start SANAD Signing</button>
+    }
+</div>
 
 @code {
 
+    private bool IsAuthenticated => ESignerService.IsLoggedIn;
+
+    private async void AuthCallback()
+    {
+        await this.ESignerService.Login();
+        this.StateHasChanged();
+    }
+
+    private async void SignCallback()
+    {
+
+    }
 }
