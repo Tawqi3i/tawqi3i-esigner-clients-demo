@@ -57,6 +57,8 @@
 
     private string NationalId { get; set; } = "9831004432";
 
+    private bool IsLoading { get; set; } = false;
+
     private async void LoginHandler()
     {
         await this.ESignerService.Login();

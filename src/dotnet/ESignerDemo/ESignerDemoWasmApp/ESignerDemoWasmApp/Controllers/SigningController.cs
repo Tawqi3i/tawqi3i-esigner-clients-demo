@@ -6,11 +6,11 @@ namespace ESignerDemoWasmApp.Controllers
     [ApiController]
     public class SigningController : ControllerBase
     {
-        [HttpPost("api/callback")]
-        public async Task<IActionResult> Callback([FromBody] object request)
+        //[HttpPost("/api/callback")]
+        [HttpGet("/api/callback")]
+        public async Task<IActionResult> Callback([FromQuery] string pinVerifyUrl)
         {
-            return this.Ok();
+            return this.Redirect(pinVerifyUrl);
         }
-
     }
 }
