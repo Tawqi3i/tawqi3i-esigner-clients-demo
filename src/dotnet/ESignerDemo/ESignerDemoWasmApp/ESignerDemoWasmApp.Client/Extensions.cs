@@ -20,37 +20,8 @@ public static class Extensions
         }
     }
 
-    public static IList<KeyValuePair<string, string>> ToFormParameters(this object theObj)
+    public static T Deserialise<T>(this string json)
     {
-        var list = new List<KeyValuePair<string, string>>();
-
-        var rootElement = JsonElementFromObject(theObj);
-
-        foreach (var jsonProp in rootElement.EnumerateObject())
-        {
-            if (jsonProp.Value.ValueKind == JsonValueKind.Array || jsonProp.Value.ValueKind == JsonValueKind.Object)
-            {
-                continue;
-            }
-
-            list.Add(new KeyValuePair<string, string>(jsonProp.Name, jsonProp.Value.ToString()));
-        }
-
-        return list;
-    }
-
-    public static JsonElement JsonElementFromObject<TValue>(TValue value, JsonSerializerOptions options = default) 
-        => JsonElementFromObject(value, typeof(TValue), options ?? DefaultOptions);
-
-    public static JsonElement JsonElementFromObject(object value, Type type, JsonSerializerOptions options = default)
-    {
-        using var doc = JsonDocumentFromObject(value, type, options ?? DefaultOptions);
-        return doc.RootElement.Clone();
-    }
-
-    public static JsonDocument JsonDocumentFromObject(object value, Type type, JsonSerializerOptions options = default)
-    {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(value, options ?? DefaultOptions);
-        return JsonDocument.Parse(bytes);
+        return JsonSerializer.Deserialize<T>(json, DefaultOptions);
     }
 }

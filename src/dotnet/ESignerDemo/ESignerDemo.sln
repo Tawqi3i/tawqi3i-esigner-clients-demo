@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemoWasmApp", "ESign
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemoWasmApp.Client", "ESignerDemoWasmApp\ESignerDemoWasmApp.Client\ESignerDemoWasmApp.Client.csproj", "{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemo.Common", "ESignerDemo.Common\ESignerDemo.Common.csproj", "{E6D7833F-1ADC-476A-B4D2-14087952EC76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6D7833F-1ADC-476A-B4D2-14087952EC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6D7833F-1ADC-476A-B4D2-14087952EC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6D7833F-1ADC-476A-B4D2-14087952EC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6D7833F-1ADC-476A-B4D2-14087952EC76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

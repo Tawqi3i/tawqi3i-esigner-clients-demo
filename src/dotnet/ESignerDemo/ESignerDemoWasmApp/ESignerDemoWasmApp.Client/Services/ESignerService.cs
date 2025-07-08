@@ -1,4 +1,6 @@
 ﻿using ESignerDemoWasmApp.Client.Dto;
+using Microsoft.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace ESignerDemoWasmApp.Client.Services;
 
@@ -14,27 +16,37 @@ public class ESignerService(Settings settings)
 
     public async Task<bool> Login()
     {
-        var req = new OAuthTokenRequest
-        {
-            ClientId = settings.ClientId,
-            ClientSecret = settings.ClientSecret,
-            GrantType = "client_credentials",
-        };
-
         var parameters = new List<KeyValuePair<string, string>>
         {
             new("grant_type", "client_credentials"),
-            new ("client_id", req.ClientId),
-            new ("client_secret", req.ClientSecret)
+            new ("client_id", settings.ClientId),
+            new ("client_secret",  settings.ClientSecret)
         };
 
+        this.httpClient.DefaultRequestHeaders.Clear();
+
         this.tokenResponse = await this.httpClient.PostFormAsync<ApiTokenResponse>($"{BaseUrl}/oauth20/token", parameters);
+
+        if (this.IsLoggedIn)
+        {
+            this.httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            this.httpClient.DefaultRequestHeaders.Add(HeaderNames.Authorization, "Bearer " + this.tokenResponse.AccessToken);
+        }
 
         return this.IsLoggedIn;
     }
 
-    public async Task Init()
+    public async Task<SanadInitResponse> SanadInit(string nationalId)
     {
+        var resp = await this.httpClient.PostAsJsonAsync($"{BaseUrl}/sanad/init", new { NationalId = nationalId });
 
+        if (!resp.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var json = await resp.Content.ReadAsStringAsync();
+
+        return json.Deserialise<SanadInitResponse>();
     }
 }

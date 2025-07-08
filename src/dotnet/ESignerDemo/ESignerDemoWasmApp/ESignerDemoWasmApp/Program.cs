@@ -1,5 +1,6 @@
-using ESignerDemoWasmApp.Client.Pages;
 using ESignerDemoWasmApp.Components;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ESignerDemoWasmApp
 {
@@ -12,6 +13,8 @@ namespace ESignerDemoWasmApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveWebAssemblyComponents();
+
+            builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase))); ;
 
             var app = builder.Build();
 
@@ -31,6 +34,8 @@ namespace ESignerDemoWasmApp
 
             app.UseStaticFiles();
             app.UseAntiforgery();
+
+            app.MapControllers();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveWebAssemblyRenderMode()

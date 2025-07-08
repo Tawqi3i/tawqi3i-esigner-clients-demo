@@ -3,31 +3,80 @@
 
 @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 
+@inject NavigationManager Navigation
 @inject ESignerService ESignerService
 
 <h3>Demo 1: ESigner SANAD Authentication & Signing</h3>
-<br/>
-<div class="d-flex flex-column w-25">
-    <button class="btn btn-success m-2" onclick="@AuthCallback">Authenticate</button>
+<br />
+<div style="width:500px;">
+    <div class="d-flex flex-column w-75">
+        <button class="btn btn-success m-2" onclick="@LoginHandler">Authenticate</button>
 
-    @if (IsAuthenticated)
-    {
-        <button class="btn btn-secondary m-2" onclick="@SignCallback">Start SANAD Signing</button>
-    }
+        @if (IsAuthenticated)
+        {
+            <div class="form-group m-2">
+                <label for="nationalId">National ID</label>
+                <input type="text" class="form-control" id="nationalId" placeholder="Enter Jordanian National Id (10 Digits)" @bind="NationalId">
+            </div>
+            <button class="btn btn-primary m-2" onclick="@StartSignHandler">Start SANAD Signing</button>
+        }
+    </div>
 </div>
+@* 
+<br />
+<div class="container border border-2 ms-0">
+    <div class="row">
+        <div class="col-4">
+            <p class="m-2">Step 1</p>
+        </div>
+        <div class="col-8">
+            <button class="btn btn-success m-2" onclick="@LoginHandler">Authenticate</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <p class="m-2">Step 1</p>
+        </div>
+        <div class="col-8">
+            <button class="btn btn-success m-2" onclick="@LoginHandler">Authenticate</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <p class="m-2">Step 1</p>
+        </div>
+        <div class="col-8">
+            <button class="btn btn-success m-2" onclick="@LoginHandler">Authenticate</button>
+        </div>
+    </div>
+</div> *@
 
 @code {
 
     private bool IsAuthenticated => ESignerService.IsLoggedIn;
 
-    private async void AuthCallback()
+    private string NationalId { get; set; } = "9831004432";
+
+    private async void LoginHandler()
     {
         await this.ESignerService.Login();
         this.StateHasChanged();
     }
 
-    private async void SignCallback()
+    /// <summary>
+    /// Demonstrate SANAD authentication & signing workflow.
+    /// </summary>
+    private async void StartSignHandler()
     {
+        if (string.IsNullOrEmpty(NationalId) || NationalId.Length != 10)
+        {
+            return;
+        }
+
+        var resp = await this.ESignerService.SanadInit(NationalId);
+
+        Navigation.NavigateTo(resp.AuthUrl);
+
 
     }
 }
