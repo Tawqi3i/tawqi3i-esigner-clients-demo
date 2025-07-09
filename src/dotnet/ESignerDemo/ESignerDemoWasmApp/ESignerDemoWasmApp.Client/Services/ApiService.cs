@@ -33,4 +33,9 @@ public class ApiService
 
         return null;
     }
+
+    public async Task<string> AdvancedSign()
+    {
+        return null;
+    }
 }

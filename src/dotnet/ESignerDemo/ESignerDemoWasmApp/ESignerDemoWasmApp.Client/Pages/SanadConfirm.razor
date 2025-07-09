@@ -1,0 +1,51 @@
+﻿@page "/signing/sanad/{SessionId}"
+@using ESignerDemoWasmApp.Client.Services
+
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+
+@inject ApiService ApiService
+
+<PageTitle>ESigner - Confirm</PageTitle>
+
+<h3>Confirm</h3>
+
+<div style="width:500px;" class="text-center">
+    <p>SessionID: @SessionId</p>
+    <div class="d-flex flex-column w-75">
+        <InputFile OnChange="LoadFiles"/>
+        <button class="btn btn-dark m-2" onclick="@SignHandler">Generate Envelope
+            @if (IsLoading)
+            {
+                <div class="spinner-border spinner-border-sm text-light" role="status"/>
+            }
+        </button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? SessionId { get; set; }
+
+    private bool IsLoading { get; set; }
+
+    private async void SignHandler()
+    {
+        IsLoading = true;
+
+        this.StateHasChanged();
+        await this.ApiService.AdvancedSign();
+
+        IsLoading = false;
+
+        this.StateHasChanged();
+    }
+
+    private async void LoadFiles(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var ms = new MemoryStream();
+        await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(ms); // 10 MB limit
+        ms.Position = 0; // Reset stream position to the beginning
+        var b64 = Convert.ToBase64String(ms.ToArray());
+    }
+}
