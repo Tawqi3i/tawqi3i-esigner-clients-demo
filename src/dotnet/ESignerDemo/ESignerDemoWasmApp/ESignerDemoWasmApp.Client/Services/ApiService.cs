@@ -20,8 +20,8 @@ public class ApiService
         return this.IsLoggedIn;
     }
 
-    public async Task<SanadInitResponse> SanadInit(string nationalId)
+    public async Task<SanadInitResponse?> SanadInit(string nationalId)
     {
-        return await this.httpClient.GetFromJsonAsync<SanadInitResponse>($"{BackendBaseUrl}/esigner/login/"+ nationalId);
+        return await this.httpClient.GetFromJsonAsync<SanadInitResponse?>($"{BackendBaseUrl}/esigner/login/"+ nationalId);
     }
 }
