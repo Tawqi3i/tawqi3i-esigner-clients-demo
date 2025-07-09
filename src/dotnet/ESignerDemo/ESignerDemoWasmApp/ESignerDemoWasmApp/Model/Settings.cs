@@ -1,4 +1,4 @@
-﻿namespace ESignerDemoWasmApp.Client.Dto;
+﻿namespace ESignerDemoWasmApp.Model;
 
 public class Settings
 {

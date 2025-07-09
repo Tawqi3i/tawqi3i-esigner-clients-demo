@@ -1,4 +1,3 @@
-using ESignerDemoWasmApp.Client.Dto;
 using ESignerDemoWasmApp.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,19 +9,7 @@ namespace ESignerDemoWasmApp.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-            builder.Services.AddSingleton<ESignerService>();
-
-            builder.Services.AddSingleton(s =>
-            {
-                var clientId = builder.Configuration["ClientId"];
-                var clientSecret = builder.Configuration["ClientSecret"];
-
-                return new Settings
-                {
-                    ClientId = clientId,
-                    ClientSecret = clientSecret,
-                };
-            });
+            builder.Services.AddSingleton<ApiService>();
 
             await builder.Build().RunAsync();
         }

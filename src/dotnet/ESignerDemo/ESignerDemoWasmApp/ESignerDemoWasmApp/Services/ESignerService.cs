@@ -1,16 +1,20 @@
-﻿using ESignerDemoWasmApp.Client.Dto;
+﻿using ESignerDemoWasmApp.Client;
+using ESignerDemoWasmApp.Client.Dto;
+using ESignerDemoWasmApp.Model;
 using Microsoft.Net.Http.Headers;
-using System.Net.Http.Json;
 
-namespace ESignerDemoWasmApp.Client.Services;
+namespace ESignerDemoWasmApp.Services;
 
 public class ESignerService(Settings settings)
 {
-    private const string BaseUrl = "https://localhost:7057/api/v1";
+    /// <summary>
+    /// ESigner API Address.
+    /// </summary>
+    private const string ESignerBaseUrl = "https://localhost:7057/api/v1";
 
     private readonly HttpClient httpClient = new();
 
-    private ApiTokenResponse tokenResponse = null;
+    private ApiTokenResponse? tokenResponse = null;
 
     public bool IsLoggedIn => !string.IsNullOrEmpty(this.tokenResponse?.AccessToken);
 
@@ -25,7 +29,7 @@ public class ESignerService(Settings settings)
 
         this.httpClient.DefaultRequestHeaders.Clear();
 
-        this.tokenResponse = await this.httpClient.PostFormAsync<ApiTokenResponse>($"{BaseUrl}/oauth20/token", parameters);
+        this.tokenResponse = await this.httpClient.PostFormAsync<ApiTokenResponse>($"{ESignerBaseUrl}/oauth20/token", parameters);
 
         if (this.IsLoggedIn)
         {
@@ -38,7 +42,7 @@ public class ESignerService(Settings settings)
 
     public async Task<SanadInitResponse> SanadInit(string nationalId)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BaseUrl}/sanad/init", new { NationalId = nationalId });
+        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/sanad/init", new { NationalId = nationalId });
 
         if (!resp.IsSuccessStatusCode)
         {

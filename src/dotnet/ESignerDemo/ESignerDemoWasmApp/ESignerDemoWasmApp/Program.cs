@@ -1,6 +1,8 @@
 using ESignerDemoWasmApp.Components;
+using ESignerDemoWasmApp.Model;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ESignerDemoWasmApp.Services;
 
 namespace ESignerDemoWasmApp
 {
@@ -42,6 +44,23 @@ namespace ESignerDemoWasmApp
                 .AddAdditionalAssemblies(typeof(Client._Imports).Assembly);
 
             app.Run();
+        }
+
+        public static void AddServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton<ESignerService>();
+
+            builder.Services.AddSingleton(s =>
+            {
+                var clientId = builder.Configuration["ClientId"];
+                var clientSecret = builder.Configuration["ClientSecret"];
+
+                return new Settings
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                };
+            });
         }
     }
 }
