@@ -40,9 +40,9 @@ public class ESignerService(Settings settings)
         return this.IsLoggedIn;
     }
 
-    public async Task<SanadInitResponse> SanadInit(string nationalId)
+    public async Task<SanadInitResponse> SanadInit(SanadInitRequest request)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/sanad/init", new { NationalId = nationalId });
+        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/sanad/init", request);
 
         if (!resp.IsSuccessStatusCode)
         {

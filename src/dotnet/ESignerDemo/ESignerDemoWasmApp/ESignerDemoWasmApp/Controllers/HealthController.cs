@@ -9,7 +9,7 @@ namespace ESignerDemoWasmApp.Controllers
         [HttpGet]
         public IActionResult Health()
         {
-            return this.Ok("Don't worry i am healthy!");
+            return this.Ok("I am fine don't worry!");
         }
     }
 }

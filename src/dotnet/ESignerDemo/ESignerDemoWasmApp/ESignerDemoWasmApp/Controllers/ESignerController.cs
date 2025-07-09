@@ -1,4 +1,5 @@
-﻿using ESignerDemoWasmApp.Services;
+﻿using ESignerDemoWasmApp.Client.Dto;
+using ESignerDemoWasmApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESignerDemoWasmApp.Controllers
@@ -18,10 +19,10 @@ namespace ESignerDemoWasmApp.Controllers
             return this.BadRequest("Login failed. Please try again.");
         }
 
-        [HttpGet("sanad/init/{nationalId}")]
-        public async Task<IActionResult> SanadInit(string nationalId)
+        [HttpPost("sanad/init")]
+        public async Task<IActionResult> SanadInit([FromBody] SanadInitRequest request)
         {
-            var resp = await eSignerService.SanadInit(nationalId);
+            var resp = await eSignerService.SanadInit(request);
             if (resp != null)
             {
                 return this.Ok(resp);
