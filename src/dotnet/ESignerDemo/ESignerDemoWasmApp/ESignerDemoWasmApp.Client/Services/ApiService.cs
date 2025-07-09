@@ -7,6 +7,8 @@ public class ApiService
 {
     private const string BackendBaseUrl = "https://localhost:7104/api";
 
+    private const string FrontEndUrl = "http://localhost:5016";
+
     private readonly HttpClient httpClient = new();
 
     public bool IsLoggedIn { get; set; }
@@ -22,6 +24,13 @@ public class ApiService
 
     public async Task<SanadInitResponse?> SanadInit(string nationalId)
     {
-        return await this.httpClient.GetFromJsonAsync<SanadInitResponse?>($"{BackendBaseUrl}/esigner/login/"+ nationalId);
+        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = FrontEndUrl });
+
+        if (resp.IsSuccessStatusCode)
+        {
+            return await resp.Content.ReadFromJsonAsync<SanadInitResponse>();
+        }
+
+        return null;
     }
 }
