@@ -22,10 +22,6 @@ public class ApiService
 
     public async Task<SanadInitResponse> SanadInit(string nationalId)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/login/nationalId", new object());
-
-        var json = await resp.Content.ReadAsStringAsync();
-
-        return json.Deserialise<SanadInitResponse>();
+        return await this.httpClient.GetFromJsonAsync<SanadInitResponse>($"{BackendBaseUrl}/esigner/login/"+ nationalId);
     }
 }

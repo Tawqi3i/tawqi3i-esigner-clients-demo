@@ -18,7 +18,7 @@ namespace ESignerDemoWasmApp.Controllers
             return this.BadRequest("Login failed. Please try again.");
         }
 
-        [HttpPost("sanad/init/{nationalId}")]
+        [HttpGet("sanad/init/{nationalId}")]
         public async Task<IActionResult> SanadInit(string nationalId)
         {
             var resp = await eSignerService.SanadInit(nationalId);
