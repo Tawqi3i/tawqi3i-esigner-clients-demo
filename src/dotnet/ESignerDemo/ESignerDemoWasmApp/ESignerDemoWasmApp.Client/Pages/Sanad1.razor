@@ -10,7 +10,7 @@
 <br />
 <div style="width:500px;">
     <div class="d-flex flex-column w-75">
-        <button class="btn btn-success m-2" onclick="@LoginHandler">Authenticate
+        <button class="btn btn-primary m-2" onclick="@LoginHandler">Authenticate
             @if (IsLoading)
             {
                 <div class="spinner-border spinner-border-sm text-light" role="status" />
@@ -23,7 +23,7 @@
                 <label for="nationalId">National ID</label>
                 <input type="text" class="form-control" id="nationalId" placeholder="Enter Jordanian National Id (10 Digits)" @bind="NationalId">
             </div>
-            <button class="btn btn-primary m-2" onclick="@StartSignHandler">Start SANAD Signing</button>
+            <button class="btn btn-success m-2" onclick="@StartSignHandler">SANAD Authentication</button>
         }
     </div>
 </div>

@@ -5,11 +5,13 @@ namespace ESignerDemoWasmApp.Client
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             builder.Services.AddSingleton<ApiService>();
+
+            Console.WriteLine("ESignerDemoWasmApp.Client:" + builder.HostEnvironment.BaseAddress);
 
             await builder.Build().RunAsync();
         }

@@ -24,7 +24,7 @@ public class ApiService
 
     public async Task<SanadInitResponse?> SanadInit(string nationalId)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = FrontEndUrl });
+        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = $"{FrontEndUrl}/esigner/callback" });
 
         if (resp.IsSuccessStatusCode)
         {

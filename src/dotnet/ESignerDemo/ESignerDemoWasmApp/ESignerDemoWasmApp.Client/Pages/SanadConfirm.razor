@@ -1,24 +1,28 @@
-﻿@page "/signing/sanad/{SessionId}"
+﻿@page "/signing/{SessionId}"
 @using ESignerDemoWasmApp.Client.Services
 
 @rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 
 @inject ApiService ApiService
 
-<PageTitle>ESigner - Confirm</PageTitle>
-
-<h3>Confirm</h3>
+<PageTitle>Signing - Confirm</PageTitle>
 
 <div style="width:500px;" class="text-center">
-    <p>SessionID: @SessionId</p>
     <div class="d-flex flex-column w-75">
-        <InputFile OnChange="LoadFiles"/>
+        <div>SessionID: @SessionId</div>
+        <br/>
+        <InputFile OnChange="LoadFiles" class="form-control form-control-sm m-2" />
+        <br />
         <button class="btn btn-dark m-2" onclick="@SignHandler">Generate Envelope
             @if (IsLoading)
             {
                 <div class="spinner-border spinner-border-sm text-light" role="status"/>
             }
         </button>
+        @if (!string.IsNullOrWhiteSpace(Error))
+        {
+            <p class="text-danger">Something went wrong.</p>
+        }
     </div>
 </div>
 
@@ -28,24 +32,35 @@
 
     private bool IsLoading { get; set; }
 
+    private string Error { get; set; }
+
+    private IBrowserFile browserFile;
+
     private async void SignHandler()
     {
-        IsLoading = true;
+        if (browserFile == null)
+        {
+            return;
+        }
 
+        IsLoading = true;
         this.StateHasChanged();
+
+        var ms = new MemoryStream();
+        await browserFile.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(ms); // 10 MB limit
+        ms.Position = 0; // Reset stream position to the beginning
+        var b64 = Convert.ToBase64String(ms.ToArray());
+
         await this.ApiService.AdvancedSign();
 
         IsLoading = false;
+        browserFile = null;
 
         this.StateHasChanged();
     }
 
-    private async void LoadFiles(InputFileChangeEventArgs e)
+    private void LoadFiles(InputFileChangeEventArgs e)
     {
-        var file = e.File;
-        var ms = new MemoryStream();
-        await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(ms); // 10 MB limit
-        ms.Position = 0; // Reset stream position to the beginning
-        var b64 = Convert.ToBase64String(ms.ToArray());
+        browserFile = e.File;
     }
 }

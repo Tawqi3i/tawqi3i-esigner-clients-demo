@@ -31,10 +31,25 @@ namespace ESignerDemoWasmApp.Controllers
             return this.BadRequest();
         }
 
-        [HttpGet("/api/callback")]
-        public async Task<IActionResult> Callback([FromQuery] string pinVerifyUrl)
+        [HttpGet("/esigner/callback")]
+        public async Task<IActionResult> Callback([FromQuery] CallbackQuery query)
         {
-            return this.Redirect(pinVerifyUrl);
+            if (!string.IsNullOrEmpty(query.Error))
+            {
+                return this.BadRequest(query.Error);
+            }
+
+            if (!string.IsNullOrEmpty(query.PinVerifyUrl))
+            {
+                return this.Redirect(query.PinVerifyUrl);
+            }
+
+            if (query.CanSign.Value == true)
+            {
+                return this.Redirect($"http://localhost:5016/signing/{query.SessionId}");
+            }
+
+            return this.Unauthorized();
         }
     }
 }
