@@ -5,7 +5,7 @@ namespace ESignerDemoWasmApp.Client.Services;
 
 public class ApiService
 {
-    private const string BackendBaseUrl = "https://localhost:7104/api/v1";
+    private const string BackendBaseUrl = "https://localhost:7104/api";
 
     private readonly HttpClient httpClient = new();
 
@@ -22,7 +22,7 @@ public class ApiService
 
     public async Task<SanadInitResponse> SanadInit(string nationalId)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/login", new object());
+        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/login/nationalId", new object());
 
         var json = await resp.Content.ReadAsStringAsync();
 

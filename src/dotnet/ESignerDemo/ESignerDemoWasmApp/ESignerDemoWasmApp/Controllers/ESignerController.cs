@@ -18,6 +18,18 @@ namespace ESignerDemoWasmApp.Controllers
             return this.BadRequest("Login failed. Please try again.");
         }
 
+        [HttpPost("sanad/init/{nationalId}")]
+        public async Task<IActionResult> SanadInit(string nationalId)
+        {
+            var resp = await eSignerService.SanadInit(nationalId);
+            if (resp != null)
+            {
+                return this.Ok(resp);
+            }
+
+            return this.BadRequest();
+        }
+
         [HttpGet("/api/callback")]
         public async Task<IActionResult> Callback([FromQuery] string pinVerifyUrl)
         {

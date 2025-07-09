@@ -1,8 +1,8 @@
 using ESignerDemoWasmApp.Components;
 using ESignerDemoWasmApp.Model;
+using ESignerDemoWasmApp.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ESignerDemoWasmApp.Services;
 
 namespace ESignerDemoWasmApp
 {
@@ -17,6 +17,8 @@ namespace ESignerDemoWasmApp
                 .AddInteractiveWebAssemblyComponents();
 
             builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase))); ;
+
+            AddServices(builder);
 
             var app = builder.Build();
 
