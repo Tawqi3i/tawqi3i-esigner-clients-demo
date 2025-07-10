@@ -6,11 +6,6 @@ namespace ESignerDemo.Common;
 
 public class ESignerService(Settings settings)
 {
-    /// <summary>
-    /// Tawqi3i ESigner API Address.
-    /// </summary>
-    private const string ESignerBaseUrl = "https://localhost:7057/api/v1";
-
     private readonly HttpClient httpClient = new();
 
     private ApiTokenResponse? tokenResponse = null;
@@ -28,7 +23,7 @@ public class ESignerService(Settings settings)
 
         this.httpClient.DefaultRequestHeaders.Clear();
 
-        this.tokenResponse = await this.httpClient.PostFormAsync<ApiTokenResponse>($"{ESignerBaseUrl}/oauth20/token", parameters);
+        this.tokenResponse = await this.httpClient.PostFormAsync<ApiTokenResponse>($"{settings.ESignerBaseUrl}/oauth20/token", parameters);
 
         if (this.IsLoggedIn)
         {
@@ -41,7 +36,7 @@ public class ESignerService(Settings settings)
 
     public async Task<SanadInitResponse> SanadInit(SanadInitRequest request)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/sanad/init", request);
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.ESignerBaseUrl}/sanad/init", request);
 
         if (!resp.IsSuccessStatusCode)
         {
@@ -55,7 +50,7 @@ public class ESignerService(Settings settings)
 
     public async Task<EnvelopResponse> AdvancedSign(EnvelopRequest request)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/envelopes/advanced", request);
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.ESignerBaseUrl}/envelopes/advanced", request);
 
         if (!resp.IsSuccessStatusCode)
         {
