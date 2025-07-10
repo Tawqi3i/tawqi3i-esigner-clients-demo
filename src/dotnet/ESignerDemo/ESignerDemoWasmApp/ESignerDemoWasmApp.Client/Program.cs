@@ -11,6 +11,15 @@ namespace ESignerDemoWasmApp.Client
 
             builder.Services.AddSingleton<ClientApiService>();
 
+            builder.Services.AddSingleton(s =>
+            {
+                return new Settings
+                {
+                    BackendBaseUrl = builder.Configuration["BackendBaseUrl"],
+                    FrontEndUrl = builder.Configuration["FrontEndUrl"]
+                };
+            });
+
             Console.WriteLine("ESignerDemoWasmApp.Client:" + builder.HostEnvironment.BaseAddress);
 
             await builder.Build().RunAsync();
