@@ -53,18 +53,11 @@ namespace ESignerDemoWasmApp
 
             builder.Services.AddScoped<ClientApiService>(); // for prerendering
 
-            builder.Services.AddSingleton(s =>
+            builder.Services.AddSingleton(s => new Settings
             {
-                var clientId = builder.Configuration["ClientId"];
-                var clientSecret = builder.Configuration["ClientSecret"];
-                var baseUrl = builder.Configuration["ESignerBaseUrl"];
-
-                return new Settings
-                {
-                    ClientId = clientId,
-                    ClientSecret = clientSecret,
-                    ESignerBaseUrl = baseUrl
-                };
+                ClientId = builder.Configuration["ClientId"],
+                ClientSecret = builder.Configuration["ClientSecret"],
+                ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"]
             });
         }
     }
