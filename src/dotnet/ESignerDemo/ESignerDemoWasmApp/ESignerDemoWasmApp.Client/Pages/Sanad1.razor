@@ -6,25 +6,30 @@
 @inject NavigationManager Navigation
 @inject ApiService ApiService
 
-<h3>Demo 1: ESigner SANAD Authentication & Signing</h3>
-<br />
-<div style="width:500px;">
-    <div class="d-flex flex-column w-75">
-        <button class="btn btn-primary m-2" onclick="@LoginHandler">Authenticate
-            @if (IsLoading)
-            {
-                <div class="spinner-border spinner-border-sm text-light" role="status" />
-            }
-        </button>
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center">
+        <h3>Demo 1: ESigner SANAD Authentication & Signing</h3>
+        <br />
+        <div class="alert alert-secondary w-75" role="alert">
+            <div class="d-flex flex-column align-items-stretch">
+                <button class="btn btn-primary m-2" onclick="@LoginHandler">
+                    Authenticate
+                    @if (IsLoading)
+                    {
+                        <div class="spinner-border spinner-border-sm text-light" role="status" />
+                    }
+                </button>
 
-        @if (IsAuthenticated)
-        {
-            <div class="form-group m-2">
-                <label for="nationalId">National ID</label>
-                <input type="text" class="form-control" id="nationalId" placeholder="Enter Jordanian National Id (10 Digits)" @bind="NationalId">
+                @if (IsAuthenticated)
+                {
+                    <div class="form-group m-2">
+                        <label for="nationalId">National ID</label>
+                        <input type="text" class="form-control" id="nationalId" placeholder="Enter Jordanian National Id (10 Digits)" @bind="NationalId">
+                    </div>
+                    <button class="btn btn-success m-2" onclick="@StartSignHandler">SANAD Authentication</button>
+                }
             </div>
-            <button class="btn btn-success m-2" onclick="@StartSignHandler">SANAD Authentication</button>
-        }
+        </div>
     </div>
 </div>
 @* 
@@ -69,9 +74,9 @@
         IsLoading = true;
 
         this.StateHasChanged();
-        
+
         await this.ApiService.Login();
-        
+
         IsLoading = false;
 
         this.StateHasChanged();
@@ -93,4 +98,4 @@
 
         this.StateHasChanged();
     }
-}
+    }

@@ -1,30 +1,39 @@
 ﻿@page "/signing/{SessionId}"
 @using ESignerDemoWasmApp.Client.Services
 
-@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: true))
 
 @inject ApiService ApiService
 
 <PageTitle>Signing - Confirm</PageTitle>
+<br />
+<div class="d-flex justify-content-center w-100">
 
-<div style="width:500px;" class="text-center">
-    <div class="d-flex flex-column w-75">
-        <div>SessionID: @SessionId</div>
-        <br/>
-        <InputFile OnChange="LoadFiles" class="form-control form-control-sm m-2" />
-        <br />
-        <button class="btn btn-dark m-2" onclick="@SignHandler">Generate Envelope
-            @if (IsLoading)
+    <div class="alert alert-secondary" role="alert">
+        <div class="d-flex flex-column align-items-center">
+            <div class="m-2">SessionID: @SessionId</div>
+            <br />
+            <InputFile OnChange="LoadFiles" accept=".pdf" class="form-control form-control-sm m-2" />
+            <br />
+            <button class="btn btn-dark m-2" onclick="@SignHandler">
+                Generate Envelope
+                @if (IsLoading)
+                {
+                    <div class="spinner-border spinner-border-sm text-light" role="status" />
+                }
+            </button>
+            @if (!string.IsNullOrWhiteSpace(Result))
             {
-                <div class="spinner-border spinner-border-sm text-light" role="status"/>
+                <p class="text-success m-2">@Result</p>
             }
-        </button>
-        @if (!string.IsNullOrWhiteSpace(Error))
-        {
-            <p class="text-danger">Something went wrong.</p>
-        }
+            @if (!string.IsNullOrWhiteSpace(Error))
+            {
+                <p class="text-danger m-2">@Error</p>
+            }
+        </div>
     </div>
 </div>
+
 
 @code {
     [Parameter]
@@ -34,7 +43,14 @@
 
     private string Error { get; set; }
 
+    private string Result { get; set; }
+
     private IBrowserFile browserFile;
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized...");
+    }
 
     private async void SignHandler()
     {
@@ -44,6 +60,9 @@
         }
 
         IsLoading = true;
+        Error = string.Empty;
+        Result = string.Empty;
+
         this.StateHasChanged();
 
         var ms = new MemoryStream();
@@ -51,10 +70,18 @@
         ms.Position = 0; // Reset stream position to the beginning
         var b64 = Convert.ToBase64String(ms.ToArray());
 
-        await this.ApiService.AdvancedSign(SessionId, b64);
+        var resp = await this.ApiService.AdvancedSign(SessionId, b64);
+        if (resp == null)
+        {
+            Error = "Something went wrong, try again!";
+        }
+        else
+        {
+            browserFile = null;
+            Result = "Success...EnvelopeId:" + resp.EnvelopeId;
+        }
 
         IsLoading = false;
-        browserFile = null;
 
         this.StateHasChanged();
     }

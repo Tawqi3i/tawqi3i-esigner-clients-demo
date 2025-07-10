@@ -3,6 +3,7 @@ using ESignerDemoWasmApp.Model;
 using ESignerDemoWasmApp.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ESignerDemoWasmApp.Client.Services;
 
 namespace ESignerDemoWasmApp
 {
@@ -51,6 +52,8 @@ namespace ESignerDemoWasmApp
         public static void AddServices(WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton<ESignerService>();
+
+            builder.Services.AddScoped<ApiService>(); // for prerendering
 
             builder.Services.AddSingleton(s =>
             {
