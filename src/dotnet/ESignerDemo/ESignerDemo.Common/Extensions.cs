@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace ESignerDemoWasmApp.Client;
+namespace ESignerDemo.Common;
 
 public static class Extensions
 {

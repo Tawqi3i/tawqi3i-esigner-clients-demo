@@ -2,7 +2,7 @@
 using ESignerDemo.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ESignerDemoWasmApp.Controllers
+namespace ESignerDemo.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

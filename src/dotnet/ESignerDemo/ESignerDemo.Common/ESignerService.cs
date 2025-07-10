@@ -1,9 +1,8 @@
-﻿using ESignerDemoWasmApp.Client;
-using ESignerDemoWasmApp.Client.Dto;
-using ESignerDemoWasmApp.Model;
+﻿using ESignerDemo.Common.Dto;
 using Microsoft.Net.Http.Headers;
+using System.Net.Http.Json;
 
-namespace ESignerDemoWasmApp.Services;
+namespace ESignerDemo.Common;
 
 public class ESignerService(Settings settings)
 {

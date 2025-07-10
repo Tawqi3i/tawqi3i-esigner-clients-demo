@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ESignerDemoWasmApp.Client.Dto;
+namespace ESignerDemo.Common.Dto;
 
 public class ApiTokenResponse
 {

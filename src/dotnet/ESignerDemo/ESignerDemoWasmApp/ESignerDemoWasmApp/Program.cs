@@ -1,8 +1,7 @@
 using ESignerDemoWasmApp.Components;
-using ESignerDemoWasmApp.Model;
-using ESignerDemoWasmApp.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ESignerDemo.Common;
 using ESignerDemoWasmApp.Client.Services;
 
 namespace ESignerDemoWasmApp

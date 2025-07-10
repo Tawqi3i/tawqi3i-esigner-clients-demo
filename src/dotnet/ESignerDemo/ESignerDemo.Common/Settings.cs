@@ -1,4 +1,4 @@
-﻿namespace ESignerDemoWasmApp.Model;
+﻿namespace ESignerDemo.Common;
 
 public class Settings
 {

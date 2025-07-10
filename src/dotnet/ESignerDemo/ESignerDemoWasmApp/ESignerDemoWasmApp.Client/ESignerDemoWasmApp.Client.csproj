@@ -10,7 +10,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.17" />
-    <PackageReference Include="Microsoft.Net.Http.Headers" Version="8.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ESignerDemo.Common\ESignerDemo.Common.csproj" />
   </ItemGroup>
 
 </Project>

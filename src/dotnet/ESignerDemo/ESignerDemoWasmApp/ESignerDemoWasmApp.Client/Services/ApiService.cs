@@ -1,4 +1,4 @@
-﻿using ESignerDemoWasmApp.Client.Dto;
+﻿using ESignerDemo.Common.Dto;
 using System.Net.Http.Json;
 
 namespace ESignerDemoWasmApp.Client.Services;
