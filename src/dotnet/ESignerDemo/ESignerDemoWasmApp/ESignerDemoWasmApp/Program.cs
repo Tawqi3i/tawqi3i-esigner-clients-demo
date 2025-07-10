@@ -1,7 +1,7 @@
+using ESignerDemo.Common;
 using ESignerDemoWasmApp.Components;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ESignerDemo.Common;
 
 namespace ESignerDemoWasmApp
 {
@@ -57,11 +57,13 @@ namespace ESignerDemoWasmApp
             {
                 var clientId = builder.Configuration["ClientId"];
                 var clientSecret = builder.Configuration["ClientSecret"];
+                var baseUrl = builder.Configuration["ESignerBaseUrl"];
 
                 return new Settings
                 {
                     ClientId = clientId,
                     ClientSecret = clientSecret,
+                    ESignerBaseUrl = baseUrl
                 };
             });
         }

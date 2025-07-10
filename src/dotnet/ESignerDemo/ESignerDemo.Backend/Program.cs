@@ -1,3 +1,5 @@
+using ESignerDemo.Common;
+
 namespace ESignerDemo.Backend
 {
     public class Program
@@ -7,6 +9,7 @@ namespace ESignerDemo.Backend
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            AddServices(builder);
 
             builder.Services.AddControllers();
 
@@ -22,6 +25,27 @@ namespace ESignerDemo.Backend
             app.MapControllers();
 
             app.Run();
+        }
+
+        public static void AddServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton<ESignerService>();
+
+            builder.Services.AddScoped<ClientApiService>(); // for prerendering
+
+            builder.Services.AddSingleton(s =>
+            {
+                var clientId = builder.Configuration["ClientId"];
+                var clientSecret = builder.Configuration["ClientSecret"];
+                var baseUrl = builder.Configuration["ESignerBaseUrl"];
+
+                return new Settings
+                {
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                    ESignerBaseUrl = baseUrl
+                };
+            });
         }
     }
 }
