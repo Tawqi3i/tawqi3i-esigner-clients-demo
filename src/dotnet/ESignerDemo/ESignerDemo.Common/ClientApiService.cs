@@ -1,9 +1,9 @@
-﻿using ESignerDemo.Common.Dto;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
+using ESignerDemo.Common.Dto;
 
-namespace ESignerDemoWasmApp.Client.Services;
+namespace ESignerDemo.Common;
 
-public class ApiService
+public class ClientApiService
 {
     private const string BackendBaseUrl = "https://localhost:7104/api";
 

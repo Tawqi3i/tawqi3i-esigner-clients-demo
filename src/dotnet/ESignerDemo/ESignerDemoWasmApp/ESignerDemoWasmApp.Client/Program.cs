@@ -1,4 +1,4 @@
-using ESignerDemoWasmApp.Client.Services;
+using ESignerDemo.Common;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace ESignerDemoWasmApp.Client
@@ -9,7 +9,7 @@ namespace ESignerDemoWasmApp.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-            builder.Services.AddSingleton<ApiService>();
+            builder.Services.AddSingleton<ClientApiService>();
 
             Console.WriteLine("ESignerDemoWasmApp.Client:" + builder.HostEnvironment.BaseAddress);
 

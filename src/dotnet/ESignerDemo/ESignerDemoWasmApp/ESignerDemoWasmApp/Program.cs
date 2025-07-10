@@ -2,7 +2,6 @@ using ESignerDemoWasmApp.Components;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ESignerDemo.Common;
-using ESignerDemoWasmApp.Client.Services;
 
 namespace ESignerDemoWasmApp
 {
@@ -52,7 +51,7 @@ namespace ESignerDemoWasmApp
         {
             builder.Services.AddSingleton<ESignerService>();
 
-            builder.Services.AddScoped<ApiService>(); // for prerendering
+            builder.Services.AddScoped<ClientApiService>(); // for prerendering
 
             builder.Services.AddSingleton(s =>
             {
