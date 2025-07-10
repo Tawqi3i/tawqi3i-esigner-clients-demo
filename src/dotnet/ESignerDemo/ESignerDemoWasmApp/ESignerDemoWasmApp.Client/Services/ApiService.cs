@@ -25,7 +25,6 @@ public class ApiService
     public async Task<SanadInitResponse?> SanadInit(string nationalId)
     {
         var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = $"{FrontEndUrl}/esigner/callback" });
-
         if (resp.IsSuccessStatusCode)
         {
             return await resp.Content.ReadFromJsonAsync<SanadInitResponse>();
@@ -34,8 +33,14 @@ public class ApiService
         return null;
     }
 
-    public async Task<string> AdvancedSign()
+    public async Task<EnvelopResponse> AdvancedSign(string sessionId, string base64)
     {
+        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sign/advanced", new EnvelopRequest { SessionId = sessionId, Data = base64 });
+        if (resp.IsSuccessStatusCode)
+        {
+            return await resp.Content.ReadFromJsonAsync<EnvelopResponse>();
+        }
+
         return null;
     }
 }

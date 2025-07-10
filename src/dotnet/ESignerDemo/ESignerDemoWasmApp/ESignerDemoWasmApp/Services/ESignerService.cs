@@ -53,4 +53,18 @@ public class ESignerService(Settings settings)
 
         return json.Deserialise<SanadInitResponse>();
     }
+
+    public async Task<EnvelopResponse> AdvancedSign(EnvelopRequest request)
+    {
+        var resp = await this.httpClient.PostAsJsonAsync($"{ESignerBaseUrl}/envelopes/advanced", request);
+
+        if (!resp.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var json = await resp.Content.ReadAsStringAsync();
+
+        return json.Deserialise<EnvelopResponse>();
+    }
 }

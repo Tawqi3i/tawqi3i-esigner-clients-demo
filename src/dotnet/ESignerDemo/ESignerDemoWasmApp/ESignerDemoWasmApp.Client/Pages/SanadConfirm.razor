@@ -51,7 +51,7 @@
         ms.Position = 0; // Reset stream position to the beginning
         var b64 = Convert.ToBase64String(ms.ToArray());
 
-        await this.ApiService.AdvancedSign();
+        await this.ApiService.AdvancedSign(SessionId, b64);
 
         IsLoading = false;
         browserFile = null;

@@ -31,6 +31,18 @@ namespace ESignerDemoWasmApp.Controllers
             return this.BadRequest();
         }
 
+        [HttpPost("sign/advanced")]
+        public async Task<IActionResult> AdvancedSign([FromBody] EnvelopRequest request)
+        {
+            var resp = await eSignerService.AdvancedSign(request);
+            if (resp != null)
+            {
+                return this.Ok(resp);
+            }
+
+            return this.BadRequest();
+        }
+
         [HttpGet("/esigner/callback")]
         public async Task<IActionResult> Callback([FromQuery] CallbackQuery query)
         {
