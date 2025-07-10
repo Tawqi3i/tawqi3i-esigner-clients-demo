@@ -1,21 +1,17 @@
-﻿using System.Net.Http.Json;
-using ESignerDemo.Common.Dto;
+﻿using ESignerDemo.Common.Dto;
+using System.Net.Http.Json;
 
 namespace ESignerDemo.Common;
 
-public class ClientApiService
+public class ClientApiService(Settings settings)
 {
-    private const string BackendBaseUrl = "https://localhost:7104/api";
-
-    private const string FrontEndUrl = "http://localhost:5016";
-
     private readonly HttpClient httpClient = new();
 
     public bool IsLoggedIn { get; set; }
 
     public async Task<bool> Login()
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/login", new object());
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/login", new object());
 
         this.IsLoggedIn = resp.IsSuccessStatusCode;
 
@@ -24,7 +20,7 @@ public class ClientApiService
 
     public async Task<SanadInitResponse?> SanadInit(string nationalId)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = $"{FrontEndUrl}/esigner/callback" });
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/sanad/init", new {NationalId = nationalId, RedirectUri = $"{settings.FrontEndUrl}/esigner/callback" });
         if (resp.IsSuccessStatusCode)
         {
             return await resp.Content.ReadFromJsonAsync<SanadInitResponse>();
@@ -35,7 +31,7 @@ public class ClientApiService
 
     public async Task<EnvelopResponse> AdvancedSign(string sessionId, string base64)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{BackendBaseUrl}/esigner/sign/advanced", new EnvelopRequest { SessionId = sessionId, Data = base64 });
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/sign/advanced", new EnvelopRequest { SessionId = sessionId, Data = base64 });
         if (resp.IsSuccessStatusCode)
         {
             return await resp.Content.ReadFromJsonAsync<EnvelopResponse>();
