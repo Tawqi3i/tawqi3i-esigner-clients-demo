@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemo.Backend", "ESig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemo.Frontend", "ESignerDemo.Frontend\ESignerDemo.Frontend.csproj", "{4446F5AA-4204-43FA-A997-2DB414A86A59}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WasmInteractive", "WasmInteractive", "{F6F463DF-A5DF-4858-8213-8AE63A0358EB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveWasm", "InteractiveWasm", "{F6F463DF-A5DF-4858-8213-8AE63A0358EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
