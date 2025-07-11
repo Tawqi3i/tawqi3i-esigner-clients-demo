@@ -6,7 +6,7 @@ namespace ESignerDemoWasmApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ESignerController(ESignerService eSignerService) : ControllerBase
+    public class ESignerController(ESignerService eSignerService, Settings settings) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login()
@@ -56,9 +56,9 @@ namespace ESignerDemoWasmApp.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
-            if (query.CanSign.Value == true)
+            if (query.CanSign.Value)
             {
-                return this.Redirect($"http://localhost:5016/signing/{query.SessionId}");
+                return this.Redirect($"{settings.SignPageUrl}/{query.SessionId}");
             }
 
             return this.Unauthorized();

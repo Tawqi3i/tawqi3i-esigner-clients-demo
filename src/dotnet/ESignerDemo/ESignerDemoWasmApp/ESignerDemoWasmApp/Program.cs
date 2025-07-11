@@ -57,7 +57,8 @@ namespace ESignerDemoWasmApp
             {
                 ClientId = builder.Configuration["ClientId"],
                 ClientSecret = builder.Configuration["ClientSecret"],
-                ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"]
+                ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"],
+                SignPageUrl = builder.Configuration["SignPageUrl"],
             });
         }
     }
