@@ -1,0 +1,34 @@
+﻿@page "/esigner/callback"
+
+@inject NavigationManager Navigation
+
+@code {
+    [SupplyParameterFromQuery]
+    public string? PinVerifyUrl { get; set; }
+
+    [SupplyParameterFromQuery]
+    public string? NationalId { get; set; }
+
+    [SupplyParameterFromQuery]
+    public string? SessionId { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool? CanSign { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(PinVerifyUrl))
+        {
+            Navigation.NavigateTo(PinVerifyUrl, true);
+        }
+        else if (CanSign.Value)
+        {
+            Navigation.NavigateTo("/sign/" + SessionId, true);
+        }
+        else
+        {
+            Navigation.NavigateTo("/", true);
+        }
+    }
+
+}
