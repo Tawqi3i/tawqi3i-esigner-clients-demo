@@ -9,7 +9,7 @@ Image below shows the stakeholders involved in the authorisation flows:
 Projects: ESignerDemo.Frontend & ESignerDemo.Backend
 Demonstrates a workflow when  RedirectUrl hits the Frontend app first and with the help of the Backend.
 
-### SSR/HOsted App
+### SSR/HostedApp
 Project: ESignerDemoWasmApp
 A Client Side Rendering Blazor app that demonstrates a workflow when  RedirectUrl hits the host/backend.
 This setup  applies to SSR apps as well.
