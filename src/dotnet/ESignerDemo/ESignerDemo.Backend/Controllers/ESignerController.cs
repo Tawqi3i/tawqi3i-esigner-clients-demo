@@ -56,7 +56,7 @@ namespace ESignerDemo.Backend.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
-            if (query.CanSign.Value == true)
+            if (query.CanSign.Value)
             {
                 return this.Redirect($"http://localhost:5016/signing/{query.SessionId}");
             }

@@ -11,11 +11,17 @@ namespace ESignerDemo.Backend
             // Add services to the container.
             AddServices(builder);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy => { policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
+            });
+
             builder.Services.AddControllers();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 
