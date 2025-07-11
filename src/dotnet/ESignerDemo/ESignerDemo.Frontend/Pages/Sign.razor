@@ -12,7 +12,7 @@
             <br />
             <InputFile OnChange="LoadFiles" accept=".pdf" class="form-control form-control-sm m-2" />
             <br />
-            <button class="btn btn-dark m-2" onclick="@SignHandler">
+            <button class="btn btn-dark m-2" onclick="@SignHandler" disabled="@IsLoading">
                 Generate Envelope
                 @if (IsLoading)
                 {
@@ -21,7 +21,7 @@
             </button>
             @if (!string.IsNullOrWhiteSpace(Result))
             {
-                <p class="text-success m-2">@Result</p>
+                <p class="text-success m-2"><span>&#10003;</span> @Result</p>
             }
             @if (!string.IsNullOrWhiteSpace(Error))
             {
@@ -70,7 +70,7 @@
         else
         {
             browserFile = null;
-            Result = "Success...EnvelopeId:" + resp.EnvelopeId;
+            Result = "EnvelopeId:" + resp.EnvelopeId;
         }
 
         IsLoading = false;
