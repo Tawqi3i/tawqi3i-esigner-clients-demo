@@ -21,6 +21,8 @@ namespace ESignerDemo.Backend
 
             app.UseAuthorization();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.MapControllers();
 
