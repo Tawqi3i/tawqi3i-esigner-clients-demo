@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemoServerApp", "ESignerDemoServerApp\ESignerDemoServerApp.csproj", "{6266E7DA-050E-4322-8520-57305CD3BDAA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemoWasmApp", "ESignerDemoWasmApp\ESignerDemoWasmApp\ESignerDemoWasmApp.csproj", "{0B4C1F83-F4ED-4E42-BA8E-2CA082ABCFF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemoWasmApp.Client", "ESignerDemoWasmApp\ESignerDemoWasmApp.Client\ESignerDemoWasmApp.Client.csproj", "{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESignerDemo.Common", "ESignerDemo.Common\ESignerDemo.Common.csproj", "{E6D7833F-1ADC-476A-B4D2-14087952EC76}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSR", "SSR", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FEBE", "FEBE", "{3E4C88BA-3F29-4E9C-8C7A-DFB699C9ACBF}"
 EndProject
@@ -27,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6266E7DA-050E-4322-8520-57305CD3BDAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6266E7DA-050E-4322-8520-57305CD3BDAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6266E7DA-050E-4322-8520-57305CD3BDAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6266E7DA-050E-4322-8520-57305CD3BDAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B4C1F83-F4ED-4E42-BA8E-2CA082ABCFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B4C1F83-F4ED-4E42-BA8E-2CA082ABCFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B4C1F83-F4ED-4E42-BA8E-2CA082ABCFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6266E7DA-050E-4322-8520-57305CD3BDAA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0B4C1F83-F4ED-4E42-BA8E-2CA082ABCFF1} = {F6F463DF-A5DF-4858-8213-8AE63A0358EB}
 		{45EF7005-B45B-4ED2-8EBB-9B70B7F6BA0D} = {F6F463DF-A5DF-4858-8213-8AE63A0358EB}
 		{9CC577B5-D21A-4AAA-8B98-ED0A42B08471} = {3E4C88BA-3F29-4E9C-8C7A-DFB699C9ACBF}
