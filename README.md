@@ -14,7 +14,7 @@ This setup  applies to SSR apps as well.
 
 
 
-## ReactJS/NodeJS
+## ReactJS
 
 ### SPA & NodeExpress
 
