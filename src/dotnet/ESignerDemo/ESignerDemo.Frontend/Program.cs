@@ -16,18 +16,10 @@ namespace ESignerDemo.Frontend
 
             builder.Services.AddSingleton<ClientApiService>();
 
-            builder.Services.AddSingleton(s =>
+            builder.Services.AddSingleton(s => new Settings
             {
-                var clientId = builder.Configuration["ClientId"];
-                var clientSecret = builder.Configuration["ClientSecret"];
-                var baseUrl = builder.Configuration["ESignerBaseUrl"];
-
-                return new Settings
-                {
-                    ClientId = clientId,
-                    ClientSecret = clientSecret,
-                    ESignerBaseUrl = baseUrl
-                };
+                BackendBaseUrl = builder.Configuration["BackendBaseUrl"],
+                RedirectUrl = builder.Configuration["RedirectUrl"],
             });
 
             await builder.Build().RunAsync();
