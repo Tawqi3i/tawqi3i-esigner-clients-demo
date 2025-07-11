@@ -10,7 +10,9 @@ public class Settings
 
     public string BackendBaseUrl { get; set; }
 
-    //public string FrontEndUrl { get; set; }
+    //public string CallbackUrl { get; set; }
+
+    public string SignPageUrl { get; set; }
 
     public string RedirectUrl { get; set; }
 }

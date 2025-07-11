@@ -6,7 +6,7 @@ namespace ESignerDemo.Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ESignerController(ESignerService eSignerService) : ControllerBase
+    public class ESignerController(ESignerService eSignerService, Settings settings) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login()
@@ -56,9 +56,15 @@ namespace ESignerDemo.Backend.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
+            // At this point, we assume the user has successfully authenticated and can sign.
+            // Redirect user to your signing page to review document and consent before signing.
+
             if (query.CanSign.Value)
             {
-                return this.Redirect($"http://localhost:5016/signing/{query.SessionId}");
+                Console.WriteLine("RedirectUrl:" + settings.RedirectUrl);
+                Console.WriteLine("SignPageUrl:" + settings.SignPageUrl);
+
+                return this.Redirect($"{settings.SignPageUrl}/{query.SessionId}");
             }
 
             return this.Unauthorized();
