@@ -1,7 +1,12 @@
-## Sample Projects
+# Sample Projects
+In this repo you can find sample projects to help developers to integrate their apps/services with Tawqi3i ESigner API and external authorisation providers such SANAD.
 
-src\dotnet\ESignerDemo
+## .NET
 
-1. ESignerDemoWasmApp - Web Application (Client Side Rendering - front end and backend)
+### Client & Server architecture 
+Projects: ESignerDemo.Frontend & ESignerDemo.Backend
+Demonstrates a workflow when  RedirectUrl hits the Frontend app first and with the help of the Backend.
 
-2. ESignerDemoServerApp - Web Application (Server Side Rendering)
+### ESignerDemoWasmApp 
+A Client Side Rendering Blazor app that demonstrates a workflow when  RedirectUrl hits the host/backend.
+This setup  applies to SSR apps as well.
