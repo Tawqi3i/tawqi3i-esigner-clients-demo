@@ -9,11 +9,12 @@
         <br />
         <div class="alert alert-secondary w-75" role="alert">
             <div class="d-flex flex-column align-items-stretch">
+                <small class="mx-2">Authenticate with Tawqi3i API using Api ClientId & ClientSecret</small>
                 <button class="btn btn-primary m-2" onclick="@LoginHandler">
                     ESigner Login
                     @if (IsLoading)
                     {
-                        <div class="spinner-border spinner-border-sm text-light" role="status" />
+                        <div class="spinner-border spinner-border-sm text-light" role="status"/>
                     }
                 </button>
 
