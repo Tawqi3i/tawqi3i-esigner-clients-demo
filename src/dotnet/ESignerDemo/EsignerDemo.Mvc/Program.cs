@@ -48,6 +48,7 @@ namespace EsignerDemo.Mvc
                 ClientId = builder.Configuration["ClientId"],
                 ClientSecret = builder.Configuration["ClientSecret"],
                 ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"],
+                RedirectUrl = builder.Configuration["RedirectUrl"],
                 SignPageUrl = builder.Configuration["SignPageUrl"],
             });
         }

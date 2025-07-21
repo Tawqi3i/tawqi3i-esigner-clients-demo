@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Demo 1";
+}
+
+<h1>Demo 1</h1>
+
+
+<div class="text-center">
+    <small class="m-1">Authenticate with Tawqi3i API using Api ClientId & ClientSecret</small>
+    <form asp-controller="Demo1" asp-action="ESignerLogin" method="POST">
+        <button type="submit" class="btn btn-primary m-1">ESigner Login</button>
+    </form>
+
+    @{
+        var v = ViewData["ESignerLoggedin"];
+        if (v != null)
+        {
+            if ((bool)v)
+            {
+                <form asp-controller="Demo1" asp-action="SanadInit" method="POST">
+                    <button class="btn btn-success m-1">SANAD Auth & Sign</button>
+                </form>
+            }
+            else
+            {
+                <p class="text-danger">Failed to log in</p>
+            }
+        }
+    }
+
+</div>

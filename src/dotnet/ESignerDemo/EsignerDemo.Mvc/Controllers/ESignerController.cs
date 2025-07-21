@@ -11,10 +11,13 @@ namespace EsignerDemo.Mvc.Controllers
         {
             if (await eSignerService.Login())
             {
-                return this.Ok();
+                this.ViewData["ESignerLogin"] = true;
+
+                return this.View();
             }
 
-            return this.BadRequest("Login failed. Please try again.");
+            this.ViewData["ESignerLogin"] = false;
+            return this.View();
         }
 
         [HttpPost("sanad/init")]
