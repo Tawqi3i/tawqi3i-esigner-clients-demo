@@ -1,3 +1,5 @@
+using ESignerDemo.Common;
+
 namespace EsignerDemo.Mvc
 {
     public class Program
@@ -8,6 +10,8 @@ namespace EsignerDemo.Mvc
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            AddServices(builder);
 
             var app = builder.Build();
 
@@ -31,6 +35,21 @@ namespace EsignerDemo.Mvc
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        public static void AddServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddSingleton<ESignerService>();
+
+            builder.Services.AddScoped<ClientApiService>(); // for prerendering
+
+            builder.Services.AddSingleton(s => new Settings
+            {
+                ClientId = builder.Configuration["ClientId"],
+                ClientSecret = builder.Configuration["ClientSecret"],
+                ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"],
+                SignPageUrl = builder.Configuration["SignPageUrl"],
+            });
         }
     }
 }

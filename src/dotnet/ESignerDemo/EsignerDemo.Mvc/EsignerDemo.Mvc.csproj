@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ESignerDemo.Common\ESignerDemo.Common.csproj" />
+  </ItemGroup>
+
 </Project>

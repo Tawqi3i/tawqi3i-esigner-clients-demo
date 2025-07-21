@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Demo 1";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="text-center">
+    <small class="mx-2">Authenticate with Tawqi3i API using Api ClientId & ClientSecret</small>
+
+    <form asp-action="Login" asp-controller="ESigner" method="POST">
+        <button type="submit" class="btn btn-primary">ESigner Login</button>
+    </form>
+</div>
