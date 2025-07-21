@@ -15,8 +15,8 @@ Demonstrates the auth flow when RedirectUrl hits the **Frontend** app first and 
 ### SSR/HostedApp
 Project: **ESignerDemoWasmApp**
 
-A Client Side Rendering Blazor app that demonstrates the auth flow when RedirectUrl hits the **host/backend**.
-This setup  applies to SSR apps as well.
+An Interactive WebAssembly Blazor app that demonstrates the auth flow when RedirectUrl hits the **host/backend**.
+This setup applies to SSR apps as well.
 
 
 
