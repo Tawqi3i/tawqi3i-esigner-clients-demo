@@ -8,14 +8,14 @@ Image below shows the stakeholders/roles involved in the authorisation flow with
 ## .NET
 
 ### Client & Server 
-Projects: **ESignerDemo.Frontend & ESignerDemo.Backend**
+Project: **ESignerDemo.Frontend & ESignerDemo.Backend**
 
-Demonstrates a workflow when RedirectUrl hits the **Frontend** app first and then with the help of the Backend completes the cycle.
+Demonstrates the auth flow when RedirectUrl hits the **Frontend** app first and then with the help of the Backend completes the cycle.
 
 ### SSR/HostedApp
 Project: **ESignerDemoWasmApp**
 
-A Client Side Rendering Blazor app that demonstrates a workflow when RedirectUrl hits the **host/backend**.
+A Client Side Rendering Blazor app that demonstrates the auth flow when RedirectUrl hits the **host/backend**.
 This setup  applies to SSR apps as well.
 
 
