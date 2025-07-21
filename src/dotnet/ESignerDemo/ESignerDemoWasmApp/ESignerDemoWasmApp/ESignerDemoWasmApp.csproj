@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ESignerDemo.Common\ESignerDemo.Common.csproj" />
     <ProjectReference Include="..\ESignerDemoWasmApp.Client\ESignerDemoWasmApp.Client.csproj" />
+    <PackageReference Include="Gotho.BlazorPdf" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.17" />
   </ItemGroup>
 

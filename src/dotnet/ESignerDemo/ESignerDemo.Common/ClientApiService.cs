@@ -18,7 +18,7 @@ public class ClientApiService(Settings settings)
         return this.IsLoggedIn;
     }
 
-    public async Task<SanadInitResponse?> SanadInit(string nationalId)
+    public async Task<SanadInitResponse?> SanadInit(string nationalId, string? signingPage = null)
     {
         var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/sanad/init", new { NationalId = nationalId, RedirectUri = settings.RedirectUrl });
         if (resp.IsSuccessStatusCode)

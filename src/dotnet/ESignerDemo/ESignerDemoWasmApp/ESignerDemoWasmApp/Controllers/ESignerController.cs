@@ -8,6 +8,8 @@ namespace ESignerDemoWasmApp.Controllers
     [ApiController]
     public class ESignerController(ESignerService eSignerService, Settings settings) : ControllerBase
     {
+        private static IDictionary<string, SanadInitRequest> cache = new Dictionary<string, SanadInitRequest>();
+
         [HttpPost("login")]
         public async Task<IActionResult> Login()
         {
@@ -25,6 +27,7 @@ namespace ESignerDemoWasmApp.Controllers
             var resp = await eSignerService.SanadInit(request);
             if (resp != null)
             {
+                cache.Add(resp.SessionId, request);
                 return this.Ok(resp);
             }
 
@@ -51,6 +54,7 @@ namespace ESignerDemoWasmApp.Controllers
                 return this.BadRequest(query.Error);
             }
 
+            // User completed authentication with SANAD SSO, next step to verify PIN for signing.
             if (!string.IsNullOrEmpty(query.PinVerifyUrl))
             {
                 return this.Redirect(query.PinVerifyUrl);
@@ -58,6 +62,11 @@ namespace ESignerDemoWasmApp.Controllers
 
             if (query.CanSign.Value)
             {
+                if (cache.TryGetValue(query.SessionId, out var request) && !string.IsNullOrWhiteSpace(request.SigningPage))
+                {
+                    return this.Redirect($"{request.SigningPage}/{query.SessionId}");
+                }
+
                 return this.Redirect($"{settings.SignPageUrl}/{query.SessionId}");
             }
 
