@@ -19,6 +19,8 @@ namespace ESignerDemoWasmApp.Client
 
             Console.WriteLine("ESignerDemoWasmApp.Client:" + builder.HostEnvironment.BaseAddress);
 
+            builder.Services.AddBlazorPdfViewer();
+
             await builder.Build().RunAsync();
         }
     }

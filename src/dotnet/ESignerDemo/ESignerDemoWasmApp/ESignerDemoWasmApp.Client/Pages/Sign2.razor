@@ -1,0 +1,64 @@
+﻿@page "/sign2/{SessionId}"
+
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+
+@inject ClientApiService ApiService
+
+<div class="d-flex justify-content-center w-100">
+    @if (IsLoading)
+    {
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-secondary" role="alert">
+            @if (!string.IsNullOrWhiteSpace(Result))
+            {
+                <p class="text-success m-2"><span>&#10003;</span> @Result</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(Error))
+            {
+                <p class="text-danger m-2">@Error</p>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private bool IsLoading { get; set; }
+
+    [Parameter]
+    public string? SessionId { get; set; }
+
+    private string Error { get; set; }
+
+    private string Result { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.IsLoading = true;
+        this.StateHasChanged();
+
+        // fetch your file
+        var resp = await this.ApiService.AdvancedSign(SessionId, Helper.PdfBase64);
+        if (resp == null)
+        {
+            Error = "Something went wrong, try again!";
+        }
+        else
+        {
+            Result = "EnvelopeId:" + resp.EnvelopeId;
+        }
+
+        this.IsLoading = false;
+        this.StateHasChanged();
+    }
+}

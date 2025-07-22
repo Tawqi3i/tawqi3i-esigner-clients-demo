@@ -1,6 +1,5 @@
 ﻿@page "/"
 @rendermode InteractiveWebAssembly
-@inject NavigationManager Navigation
 
 <PageTitle>ESigner - Home</PageTitle>
 
@@ -12,12 +11,6 @@
     <p>Configure ESignerUrl, RedirectUrl, and SigninPageUrl in <b>appsettings.json</b>.<br />RedirectUrl can be frontend or backend endpoint based on your workflow.</p>
 </div>
 
-<button class="btn btn-primary" onclick="@GetStarted">Get Started</button>
-
 @code {
 
-    private void GetStarted()
-    {
-        Navigation.NavigateTo("/sanad1");
-    }
 }

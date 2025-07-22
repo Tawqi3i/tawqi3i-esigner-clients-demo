@@ -17,6 +17,8 @@ namespace ESignerDemoWasmApp
 
             builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase))); ;
 
+            builder.Services.AddBlazorPdfViewer();
+
             AddServices(builder);
 
             var app = builder.Build();
