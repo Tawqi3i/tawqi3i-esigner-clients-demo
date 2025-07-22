@@ -36,11 +36,12 @@ namespace EsignerDemo.Mvc.Controllers
                 RedirectUri = settings.RedirectUrl
             };
 
+            this.ViewData["SanadInitResponse"] = null;
+
             var resp = await eSignerService.SanadInit(request);
 
             if (resp == null)
             {
-                this.ViewData["SanadInitResponse"] = "Failed to initialize Sanad";
                 return this.View("Index");
             }
 
@@ -63,13 +64,29 @@ namespace EsignerDemo.Mvc.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
-            //Console.WriteLine(query.Code + "," + query.State);
+            if (!query.CanSign.Value)
+            {
+                return this.View("Error");
+            }
 
-            //// Validate state
+            this.ViewData["CallbackQuery"] = query;
 
-            //var tokenResponse = this.tawqi3iService.GetToken(query.Code, CodeVerifier, this.appSettings.ApiKey, this.appSettings.SecretKey, this.appSettings.CallbackUrl);
+            return this.View("Sign1");
+        }
 
-            //this.SetViewData(tokenResponse);
+        [HttpPost]
+        public async Task<IActionResult> AdvancedSign(string sessionId)
+        {
+            var request = new EnvelopRequest
+            {
+                Data = Helper.PdfBase64,
+                SessionId = sessionId
+            };
+
+            var response = await eSignerService.AdvancedSign(request);
+
+            this.ViewData["Sign1Completed"] = true;
+            this.ViewData["EnvelopeId"] = response.EnvelopeId;
 
             return this.View("Sign1");
         }

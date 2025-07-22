@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ESignerDemo.Common.Dto
 @{
+    ViewData["Title"] = "Demo 1: Signing";
 }
+
+<div class="text-center">
+@{
+    if (ViewData["CallbackQuery"] is CallbackQuery query)
+    {
+        <p>Start signing</p>
+        <form asp-controller="Demo1" asp-action="AdvancedSign" method="POST">
+            <div class="form-group">
+                <input type="hidden" class="form-control" id="sessionId" name="sessionId" required value="@query.SessionId">
+            </div>
+            <button class="btn btn-dark">Generate Envelope</button>
+        </form>
+
+        if (ViewData["IsSigning"] is bool b)
+        {
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-secondary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        }
+    }
+    else if (ViewData["EnvelopeId"] != null)
+    {
+        <p class="text-success m-2"><span>&#10003;</span>EnvelopeId: @ViewData["EnvelopeId"]?.ToString()</p>
+    }
+    else
+    {
+        <p class="text-danger">Something went wrong!</p>
+    }
+}
+</div>

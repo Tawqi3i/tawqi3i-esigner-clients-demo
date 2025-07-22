@@ -49,7 +49,7 @@ namespace EsignerDemo.Mvc
                 ClientSecret = builder.Configuration["ClientSecret"],
                 ESignerBaseUrl = builder.Configuration["ESignerBaseUrl"],
                 RedirectUrl = builder.Configuration["RedirectUrl"],
-                SignPageUrl = builder.Configuration["SignPageUrl"],
+                //SignPageUrl = builder.Configuration["SignPageUrl"],
             });
         }
     }
