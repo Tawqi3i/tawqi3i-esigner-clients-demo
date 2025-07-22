@@ -12,12 +12,16 @@ Project: **ESignerDemo.Frontend & ESignerDemo.Backend**
 
 Demonstrates the auth flow when RedirectUrl hits the **Frontend** app first and then with the help of the Backend completes the cycle.
 
+### SSR (MVC)
+Project: **EsignerDemo.Mvc**
+
+An ASP.NET Core MVC app that demonstrates the auth flow when RedirectUrl hits the **backend**.
+
+
 ### SSR/HostedApp
 Project: **ESignerDemoWasmApp**
 
 An Interactive WebAssembly Blazor app that demonstrates the auth flow when RedirectUrl hits the **host/backend**.
-This setup applies to SSR apps as well.
-
 
 
 ## ReactJS
