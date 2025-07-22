@@ -4,37 +4,45 @@
 }
 
 <div class="text-center">
-@{
-    if (ViewData["CallbackQuery"] is CallbackQuery query)
-    {
-        <p>Start signing</p>
-        <form asp-controller="Demo1" asp-action="AdvancedSign" method="POST">
-            <div class="form-group">
-                <input type="hidden" class="form-control" id="sessionId" name="sessionId" required value="@query.SessionId">
-            </div>
-            <button class="btn btn-dark">Generate Envelope</button>
-        </form>
-
-        if (ViewData["IsSigning"] is bool b)
+    @{
+        if (ViewData["CallbackQuery"] is CallbackQuery query)
         {
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-secondary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-success" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <p>Start signing</p>
+            <form id="signForm" asp-controller="Demo1" asp-action="AdvancedSign" method="POST">
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="sessionId" name="sessionId" required value="@query.SessionId">
+                </div>
+                <button class="btn btn-dark">Generate Envelope</button>
+            </form>
+
+            <div id="busyIndicator" style="display:none;" class="mt-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-border text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
         }
+        else if (ViewData["EnvelopeId"] != null)
+        {
+            <p class="text-success m-2"><span>&#10003;</span>Success</p>
+            <p class="text-success m-2"><span>&#10003;</span>EnvelopeId: @ViewData["EnvelopeId"]?.ToString()</p>
+        }
+        else
+        {
+            <p class="text-danger">Something went wrong!</p>
+        }
     }
-    else if (ViewData["EnvelopeId"] != null)
-    {
-        <p class="text-success m-2"><span>&#10003;</span>EnvelopeId: @ViewData["EnvelopeId"]?.ToString()</p>
-    }
-    else
-    {
-        <p class="text-danger">Something went wrong!</p>
-    }
-}
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('signForm')?.addEventListener('submit', function () {
+            document.getElementById('busyIndicator').style.display = 'block';
+        });
+    </script>
+}

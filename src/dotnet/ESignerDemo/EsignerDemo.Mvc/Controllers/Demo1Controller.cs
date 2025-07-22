@@ -85,7 +85,6 @@ namespace EsignerDemo.Mvc.Controllers
 
             var response = await eSignerService.AdvancedSign(request);
 
-            this.ViewData["Sign1Completed"] = true;
             this.ViewData["EnvelopeId"] = response.EnvelopeId;
 
             return this.View("Sign1");
