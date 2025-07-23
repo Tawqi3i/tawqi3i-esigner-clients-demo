@@ -50,7 +50,7 @@ public class ESignerService(Settings settings)
 
     public async Task<EnvelopResponse> AdvancedSign(EnvelopRequest request)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{settings.ESignerBaseUrl}/envelopes/advanced", request);
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.ESignerBaseUrl}/envelopes/sign", request);
 
         if (!resp.IsSuccessStatusCode)
         {
