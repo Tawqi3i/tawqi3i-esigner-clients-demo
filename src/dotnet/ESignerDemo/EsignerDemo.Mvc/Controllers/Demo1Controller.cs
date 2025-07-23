@@ -33,7 +33,7 @@ namespace EsignerDemo.Mvc.Controllers
             var request = new SanadInitRequest
             {
                 NationalId = "9831001234",
-                RedirectUri = settings.RedirectUrl
+                RedirectUrl = settings.RedirectUrl
             };
 
             this.ViewData["SanadInitResponse"] = null;

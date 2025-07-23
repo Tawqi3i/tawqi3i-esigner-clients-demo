@@ -20,7 +20,7 @@ public class ClientApiService(Settings settings)
 
     public async Task<SanadInitResponse?> SanadInit(string nationalId, string? signingPage = null)
     {
-        var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/sanad/init", new { NationalId = nationalId, RedirectUri = settings.RedirectUrl, SigningPage =signingPage });
+        var resp = await this.httpClient.PostAsJsonAsync($"{settings.BackendBaseUrl}/esigner/sanad/init", new { NationalId = nationalId, RedirectUrl = settings.RedirectUrl, SigningPage =signingPage });
         if (resp.IsSuccessStatusCode)
         {
             return await resp.Content.ReadFromJsonAsync<SanadInitResponse>();
