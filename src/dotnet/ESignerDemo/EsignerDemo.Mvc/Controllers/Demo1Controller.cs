@@ -64,7 +64,7 @@ namespace EsignerDemo.Mvc.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
-            if (!query.CanSign.Value)
+            if (!query.ReadyToSign.Value)
             {
                 return this.View("Error");
             }

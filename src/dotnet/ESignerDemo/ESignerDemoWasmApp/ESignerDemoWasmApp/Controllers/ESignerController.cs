@@ -60,7 +60,7 @@ namespace ESignerDemoWasmApp.Controllers
                 return this.Redirect(query.PinVerifyUrl);
             }
 
-            if (query.CanSign.Value)
+            if (query.ReadyToSign.Value)
             {
                 if (cache.TryGetValue(query.SessionId, out var request) && !string.IsNullOrWhiteSpace(request.SigningPage))
                 {

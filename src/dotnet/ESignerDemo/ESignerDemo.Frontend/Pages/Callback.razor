@@ -13,7 +13,7 @@
     public string? SessionId { get; set; }
 
     [SupplyParameterFromQuery]
-    public bool? CanSign { get; set; }
+    public bool? ReadyToSign { get; set; }
 
     protected override void OnInitialized()
     {
@@ -21,7 +21,7 @@
         {
             Navigation.NavigateTo(PinVerifyUrl, true);
         }
-        else if (CanSign.Value)
+        else if (ReadyToSign.Value)
         {
             Navigation.NavigateTo("/sign/" + SessionId, true);
         }

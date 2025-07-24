@@ -10,5 +10,5 @@ public class CallbackQuery
 
     public string? Error { get; set; }
 
-    public bool? CanSign { get; set; }
+    public bool? ReadyToSign { get; set; }
 }

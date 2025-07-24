@@ -59,7 +59,7 @@ namespace ESignerDemo.Backend.Controllers
             // At this point, we assume the user has successfully authenticated and can sign.
             // Redirect user to your signing page to review document and consent before signing.
 
-            if (query.CanSign.Value)
+            if (query.ReadyToSign.Value)
             {
                 Console.WriteLine("RedirectUrl:" + settings.RedirectUrl);
                 Console.WriteLine("SignPageUrl:" + settings.SignPageUrl);
