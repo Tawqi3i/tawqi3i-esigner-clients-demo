@@ -6,19 +6,21 @@ class AuthToken(BaseModel):
     client_id: str
     client_secret: str
 
-class SanadInitRequest(BaseModel):
-    NationalId: str
-    RedirectUrl: str
-    SigningPage: str | None
 
-class SanadInitResponse(BaseModel):
-    SessionId: str
-    AuthUrl: str
-    SignVerifyUrl: str
+class SanadInitRequest(BaseModel):
+    nationalId: str
+    redirectUrl: str | None = None
+    signingPage: str | None = None
+
+
+class SignRequest(BaseModel):
+    sessionId: str
+    data: str
+
 
 class CallbackParams(BaseModel):
-    SessionId: str
-    NationalId: str | None
-    PinVerifyUrl: str| None
-    ReadyToSign: bool | None
-    Error: str | None
+    sessionId: str
+    nationalId: str | None
+    pinVerifyUrl: str | None
+    readyToSign: bool | None
+    error: str | None
