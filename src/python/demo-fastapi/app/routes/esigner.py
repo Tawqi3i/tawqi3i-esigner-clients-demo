@@ -5,11 +5,10 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response
 import httpx
 from app.dto import CallbackParams, SanadInitRequest, SignRequest
 from app.settings import settings
-from app.services.esigner import Service
 
 router = APIRouter(prefix="/esigner", tags=["tawqi3i esigner"])
 
-ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJzdWIiOiI2MDkwOTEyMTM4NmU0OWYzOGQxM2IxNWJjNTc4ZWFkNCIsImp0aSI6ImRhMDZiYTY1Y2QwZjRjZjFiZTI1ODExNTJlY2ZhOTRlIiwiZXhwIjoxNzY0NzgwMzIxLCJpc3MiOiJUYXdxaTNpRVNpZ25lcldlYlNlcnZpY2VzIiwiYXVkIjoiVGF3cWkzaUVTaWduZXJBcGkifQ.gUs6CMdXfBe2M4Hfp6EHsGurrjMWTl7anmssUbeYgvA"  # store access token here for demo purposes only
+ACCESS_TOKEN = ""  # store access token here for demo purposes only
 
 
 @router.post("/login")
