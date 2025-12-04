@@ -3,7 +3,7 @@ import httpx
 
 from app.settings import settings
 
-router = APIRouter(prefix="/health", tags=["tawqi3i esigner"])
+router = APIRouter(prefix="/health", tags=["health"])
 
 
 @router.get("/")

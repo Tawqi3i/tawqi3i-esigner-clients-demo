@@ -1,14 +1,11 @@
-import json
 from typing_extensions import Annotated
 from fastapi import APIRouter, Query, status
 from fastapi.responses import JSONResponse, RedirectResponse, Response
-import httpx
 from app.dto import CallbackParams, SanadInitRequest, SignRequest, SanadSignRequest
 from app.settings import settings
+from app.client import esignerClient
 
-router = APIRouter(prefix="/esigner", tags=["esigner"])
-
-ACCESS_TOKEN = ""  # store access token here for demo purposes only
+router = APIRouter(prefix="/esigner2", tags=["esigner2"])
 
 
 @router.post("/login")
@@ -17,28 +14,7 @@ def auth() -> Response:
     Service to service authentication.
     """
 
-    data = {
-        "client_id": settings.CLIENT_ID,
-        "client_secret": settings.CLIENT_SECRET,
-        "redirect_uri": settings.REDIRECT_URI,
-        "grant_type": "client_credentials",
-    }
-
-    resp = httpx.post(
-        "/".join((settings.TAWQI3I_ESIGNER_API_URL_V, "oauth20/token")),
-        data=data,  # application/x-www-form-urlencoded
-        timeout=10.0,
-    )
-
-    # response.raise_for_status()
-    if resp.status_code != 200:
-        return JSONResponse(
-            content={"message": "Authentication failed"},
-            status_code=status.HTTP_401_UNAUTHORIZED,
-        )
-
-    global ACCESS_TOKEN
-    ACCESS_TOKEN = resp.json().get("access_token")
+    esignerClient.login()
 
     return JSONResponse(content={}, status_code=status.HTTP_200_OK)
 
@@ -48,7 +24,6 @@ def sanad_init(req: SanadInitRequest) -> Response:
     """
     Initialise SANAD session for end user.
     """
-    print(json.dumps(req.__dict__, indent=4))
 
     body = SanadInitRequest(
         nationalId=req.nationalId,
@@ -56,22 +31,7 @@ def sanad_init(req: SanadInitRequest) -> Response:
         signingPage=req.signingPage,
     )
 
-    global ACCESS_TOKEN
-    if ACCESS_TOKEN == "":
-        return JSONResponse(
-            content={"message": "Authentication required"},
-            status_code=status.HTTP_401_UNAUTHORIZED,
-        )
-
-    url = "/".join((settings.TAWQI3I_ESIGNER_API_URL_V, "sanad/init"))
-    data = json.dumps(body.__dict__, indent=4)
-
-    resp = httpx.post(
-        url,
-        data=data,
-        headers=get_request_headers(),
-        timeout=10.0,
-    )
+    resp = esignerClient.sanad_init(body.__dict__)
 
     if resp.status_code != status.HTTP_200_OK:
         return JSONResponse(
@@ -90,23 +50,28 @@ def sign_advanced(req: SanadSignRequest):
     :param req: Description
     :type req: SanadSignRequest
     """
-    
-    global ACCESS_TOKEN
-    if ACCESS_TOKEN == "":
+
+    resp = esignerClient.sign_advanced(req.__dict__)
+
+    if resp.status_code != status.HTTP_200_OK:
         return JSONResponse(
-            content={"message": "Authentication required"},
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"message": "Authentication failed"},
+            status_code=resp.status_code,
         )
 
-    url = "/".join((settings.TAWQI3I_ESIGNER_API_URL_V, "envelopes/sign"))
-    data = json.dumps(req.__dict__)
+    return JSONResponse(content=resp.json(), status_code=status.HTTP_200_OK)
 
-    resp = httpx.post(
-        url,
-        data=data,
-        headers=get_request_headers(),
-        timeout=10.0,
-    )
+
+@router.post("/seal")
+def seal(req: SignRequest):
+
+    resp = esignerClient.seal(req.__dict__)
+
+    if resp.status_code != status.HTTP_200_OK:
+        return JSONResponse(
+            content={"message": "Authentication failed"},
+            status_code=resp.status_code,
+        )
 
     return JSONResponse(content=resp.json(), status_code=status.HTTP_200_OK)
 
@@ -131,11 +96,3 @@ def callback(query: Annotated[CallbackParams, Query()]):
         content={"message": "Authentication failed"},
         status_code=status.HTTP_401_UNAUTHORIZED,
     )
-
-
-def get_request_headers() -> dict[str, str]:
-    global ACCESS_TOKEN
-    return {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {ACCESS_TOKEN}",
-    }

@@ -14,8 +14,11 @@ class SanadInitRequest(BaseModel):
 
 
 class SignRequest(BaseModel):
-    sessionId: str
     data: str
+
+
+class SanadSignRequest(SignRequest):
+    sessionId: str
 
 
 class CallbackParams(BaseModel):
