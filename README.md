@@ -27,6 +27,9 @@ Project: **ESignerDemoWasmApp**
 
 An Interactive WebAssembly Blazor app that demonstrates the auth flow when RedirectUrl hits the **host/backend**.
 
+## Python
+### FastApi
+A backend service demonstrates esigner api integration. Refer to its [Readme](https://github.com/Tawqi3i/tawqi3i-esigner-clients-demo/blob/main/src/python/demo-fastapi/README.md) section.
 
 ## ReactJS
 
