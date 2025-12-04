@@ -86,9 +86,6 @@ def sanad_init(req: SanadInitRequest) -> Response:
 def sign_advanced(req: SanadSignRequest):
     """
     Sign documents using advanced signature with SANAD credentials.
-
-    :param req: Description
-    :type req: SanadSignRequest
     """
 
     global ACCESS_TOKEN
@@ -115,9 +112,6 @@ def sign_advanced(req: SanadSignRequest):
 def seal(req: SignRequest):
     """
     Seal documents with a digital signature.
-
-    :param req: Description
-    :type req: SignRequest
     """
 
     global ACCESS_TOKEN

@@ -46,9 +46,6 @@ def sanad_init(req: SanadInitRequest) -> Response:
 def sign_advanced(req: SanadSignRequest):
     """
     Sign documents using advanced signature with SANAD credentials.
-
-    :param req: Description
-    :type req: SanadSignRequest
     """
 
     resp = esignerClient.sign_advanced(req.__dict__)
@@ -64,7 +61,9 @@ def sign_advanced(req: SanadSignRequest):
 
 @router.post("/seal")
 def seal(req: SignRequest):
-
+    """
+    Seal documents with a digital signature.
+    """
     resp = esignerClient.seal(req.__dict__)
 
     if resp.status_code != status.HTTP_200_OK:
