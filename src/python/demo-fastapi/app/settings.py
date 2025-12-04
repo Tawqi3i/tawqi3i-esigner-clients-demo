@@ -1,4 +1,7 @@
 class Settings:
+    def __init__(self):
+        print("Loading settings...")
+
     API_V1_STR: str = "/api/v1"
     # TAWQI3I_ESIGNER_API_URL: str = "https://api.tawqi3i.com/api/v1/"
     TAWQI3I_ESIGNER_API_URL_V: str = "http://localhost:5242" + API_V1_STR
