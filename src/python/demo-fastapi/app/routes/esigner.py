@@ -90,7 +90,7 @@ def sign_advanced(req: SanadSignRequest):
     :param req: Description
     :type req: SanadSignRequest
     """
-    
+
     global ACCESS_TOKEN
     if ACCESS_TOKEN == "":
         return JSONResponse(
@@ -107,6 +107,41 @@ def sign_advanced(req: SanadSignRequest):
         headers=get_request_headers(),
         timeout=10.0,
     )
+
+    return JSONResponse(content=resp.json(), status_code=status.HTTP_200_OK)
+
+
+@router.post("/seal")
+def seal(req: SignRequest):
+    """
+    Seal documents with a digital signature.
+
+    :param req: Description
+    :type req: SignRequest
+    """
+
+    global ACCESS_TOKEN
+    if ACCESS_TOKEN == "":
+        return JSONResponse(
+            content={"message": "Authentication required"},
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    url = "/".join((settings.TAWQI3I_ESIGNER_API_URL_V, "envelopes/seal"))
+    data = json.dumps(req.__dict__)
+
+    resp = httpx.post(
+        url,
+        data=data,
+        headers=get_request_headers(),
+        timeout=10.0,
+    )
+
+    if resp.status_code != status.HTTP_200_OK:
+        return JSONResponse(
+            content={"message": "Authentication failed"},
+            status_code=resp.status_code,
+        )
 
     return JSONResponse(content=resp.json(), status_code=status.HTTP_200_OK)
 
