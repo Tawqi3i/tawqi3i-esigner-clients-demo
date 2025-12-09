@@ -6,7 +6,7 @@ Image below shows the stakeholders/roles involved in the authorisation flow with
 <img width="581" height="78" alt="stakeholders" src="https://github.com/user-attachments/assets/db026e4a-244b-416c-8261-0da911ef90b8" />
 
 # ESigner & SSO Authentication Flow
-<img width="1752" height="1056" alt="image" src="https://github.com/user-attachments/assets/3f51dc6d-8ea3-4ab5-90ea-ec13de9056ac" />
+<img width="1062" height="640" alt="image" src="https://github.com/user-attachments/assets/5a660fb0-674c-4a4a-b5fe-77e4f1995b16" />
 
 
 ## .NET
